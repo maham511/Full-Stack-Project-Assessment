@@ -65,84 +65,168 @@ const vidList = [
 ];
 console.log(vidList);
 
-// vidList.forEach(vid => )
+ //for all Videos
 
-//for all Vides
-function Video() {
-  function deleteVid() {
-    const el = document.getElementById("vidDiv");
-    // const el = document.getElementsByClassName("wrapper"); //don't work with class
-    el.remove();
-  }
-
-  console.log("hiii");
-  const extractedUrl = vidList[9].url.substring(32).toString(); //logs correct ID
-  console.log(typeof extractedUrl);
-  console.log(`https://www.youtube.com/embed/${extractedUrl}`);
-
-  return (
-    <div id="vidDiv" classname="wrapper">
-      <h2>{vidList[9].title}</h2>
-      {/* need src value within curly braces as using js to concatenate url with extractedUrl variable */}
-      <iframe src={"https://www.youtube.com/embed/" + extractedUrl}></iframe>
-      <Rating />
-      <button id="DelBtn" onClick={deleteVid}>
-        Delete
-      </button>
-    </div>
-  );
-}
-
-//Rating component
-function Rating() {
-
-  const [count, setCount] = useState(vidList[9].rating);
-  // console.log("Button was clicked!");
-
-  function countUp() {
-     setCount(count + 1);
-  }
-
-   function countDown() {
-     setCount(count - 1);
-  }
+ function AllVideos () {
 
    return (
      <div>
-       <p>{count} likes</p>
-       <button onClick={countUp}>Up Vote</button>
-       <button onClick={countDown}>Down Vote</button>
+       {vidList.map((vid, index) => {
+
+         //Rating useState
+        //  function Rating () {
+        //    //  const [count, setCount] = useState(vid.rating);
+        //    //  function countUp() {
+        //    //    setCount(count + 1);
+        //    //  }
+        //    //  function countDown() {
+        //    //    setCount(count - 1);
+        //    //  }
+        //  }
+        
+
+         const extractedUrl = vid.url.substring(32).toString(); //stores unique ID string from url
+
+         //handler for delete btn
+         function deleteVid() {
+           const el = document.getElementById(index);
+           // const el = document.getElementsByClassName("wrapper"); //don't work with class
+           el.remove();
+         }
+
+         return (
+           <div key={index} id={index}>
+             <h2>{vid.title}</h2>
+             {/* need src value within curly braces as using js to concatenate url with extractedUrl variable */}
+             <iframe
+               src={"https://www.youtube.com/embed/" + extractedUrl}
+             ></iframe>
+
+             {/* Rating------ */}
+             <Rating vid={vid}/>
+
+             {/* ---------- */}
+             <button id="DelBtn" onClick={deleteVid}>
+               Delete
+             </button>
+           </div>
+         );
+       })}
      </div>
-   );
-}
+   )}
 
-// //DownBtn component
-// function VoteDownBtn() {
-//   // sets count value at 73, increments by 1. Only updates in button text
-//   const [count, setCount] = useState(vidList[9].rating);
-//   console.log("DwnButton was clicked!");
 
-//   function countDown() {
-//      setCount(count - 1)
+
+ //Test Rating component with props
+        function Rating(props) {
+          const [count, setCount] = useState(props.vid.rating);
+          function countUp() {
+            setCount(count + 1);
+          }
+          function countDown() {
+            setCount(count - 1);
+          }
+
+          return (
+            <div>
+              <p>{count} likes</p>
+              <button onClick={countUp}>Up Vote</button>
+              <button onClick={countDown}>Down Vote</button>
+            </div>
+          );
+          }   
+
+
+
+        //Rating component
+        // function Rating() {
+        //   // const [count, setCount] = useState(vid.rating);
+        //   // function countUp() {
+        //   //   setCount(count + 1);
+        //   // }
+        //   // function countDown() {
+        //   //   setCount(count - 1);
+        //   // }
+
+        //   return (
+        //     // <div>
+        //     //   <p>{count} likes</p>
+        //     //   <button onClick={countUp}>Up Vote</button>
+        //     //   <button onClick={countDown}>Down Vote</button>
+        //     // </div>
+        //   );
+        //   }   
+ 
+   
+   
+//    vidList.map((vid, index) => {
+//       return function Video() {
+//         const extractedUrl = vid.url.substring(32).toString(); //stores unique ID string from url
+
+       
+
+//         return (
+//           <div id={index} classname="wrapper">
+//             <h2>{vid.title}</h2>
+//             {/* need src value within curly braces as using js to concatenate url with extractedUrl variable */}
+//             <iframe src={"https://www.youtube.com/embed/" + extractedUrl}></iframe>
+//             <Rating />
+//             <button id="DelBtn" onClick={deleteVid}>
+//               Delete
+//             </button>
+//           </div>
+//         );
+// }
+
+ 
+// })}
+
+ 
+
+
+
+// //for 1 Video
+// function Video() {
+//   function deleteVid() {
+//     const el = document.getElementById("vidDiv");
+//     // const el = document.getElementsByClassName("wrapper"); //don't work with class
+//     el.remove();
 //   }
 
-//    return <button onClick={countDown}>Down Vote {count}</button>;
+//   // console.log("hiii");
+//   const extractedUrl = vidList[9].url.substring(32).toString(); //stores unique ID string from url
+
+//   return (
+//     <div id="vidDiv" classname="wrapper">
+//       <h2>{vidList[9].title}</h2>
+//       {/* need src value within curly braces as using js to concatenate url with extractedUrl variable */}
+//       <iframe src={"https://www.youtube.com/embed/" + extractedUrl}></iframe>
+//       <Rating />
+//       <button id="DelBtn" onClick={deleteVid}>
+//         Delete
+//       </button>
+//     </div>
+//   );
+// }
+
+// //Rating component
+// function Rating() {
+//   const [count, setCount] = useState(vidList[9].rating);
+//   function countUp() {
+//      setCount(count + 1);
+//   }
+//    function countDown() {
+//      setCount(count - 1);
+//   }
+
+//    return (
+//      <div>
+//        <p>{count} likes</p>
+//        <button onClick={countUp}>Up Vote</button>
+//        <button onClick={countDown}>Down Vote</button>
+//      </div>
+//    );
 // }
 
 
-//for 1 video
-// function Video() {
-//     console.log('hiii');
-//     return (
-//       <div classname="wrapper">
-//         <h2>Title</h2>
-//         {/* <iframe></iframe> */}
-//         <p>no of votes</p>
-//         <button>Up Vote</button>
-//         <button>Down Vote</button>
-//         <button>Delete Video</button>
-//       </div>
-//     );
-// };
-
-export default Video;
+export default AllVideos;

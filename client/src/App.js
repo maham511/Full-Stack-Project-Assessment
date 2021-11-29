@@ -1,5 +1,6 @@
 import "./App.css";
 import Video from "./Video";
+import AllVideos from "./Video";
 
 
 function App() {
@@ -8,7 +9,8 @@ function App() {
       <header className="App-header">
         <h1>Video Recommendation</h1>
       </header>
-        <Video/>
+        {/* <Video/> */}
+        <AllVideos/>
     </div>
   );
 }
