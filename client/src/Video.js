@@ -66,49 +66,36 @@ const vidList = [
 console.log(vidList);
 
  //for all Videos
-
  function AllVideos () {
-
    return (
      <div>
        {vidList.map((vid, index) => {
 
-         //Rating useState
-        //  function Rating () {
-        //    //  const [count, setCount] = useState(vid.rating);
-        //    //  function countUp() {
-        //    //    setCount(count + 1);
-        //    //  }
-        //    //  function countDown() {
-        //    //    setCount(count - 1);
-        //    //  }
-        //  }
-        
-
-         const extractedUrl = vid.url.substring(32).toString(); //stores unique ID string from url
+         //extracts unique video url string from array(all chars after 'v=') 
+         const extractedID = vid.url.substring(32).toString();
 
          //handler for delete btn
          function deleteVid() {
-           const el = document.getElementById(index);
-           // const el = document.getElementsByClassName("wrapper"); //don't work with class
-           el.remove();
+
+           //Store whole video div
+           const el = document.getElementById(index + 1);
+           el.remove(); //deletes whole video div element; remove() won't work with classname
          }
 
          return (
-           <div key={index} id={index}>
+           //  id & title attributes index + 1 for simple numbering(optional)
+           <div key={index} id={index + 1}>
              <h2>{vid.title}</h2>
              {/* need src value within curly braces as using js to concatenate url with extractedUrl variable */}
              <iframe
-               src={"https://www.youtube.com/embed/" + extractedUrl}
+               title={index + 1}
+               src={"https://www.youtube.com/embed/" + extractedID}
              ></iframe>
 
-             {/* Rating------ */}
-             <Rating vid={vid}/>
+             {/* map method's vid(item) argument passed as prop to be used in Rating component */}
+             <Rating vid={vid} />
 
-             {/* ---------- */}
-             <button id="DelBtn" onClick={deleteVid}>
-               Delete
-             </button>
+             <button id="DelBtn" onClick={deleteVid}>Delete</button>
            </div>
          );
        })}
@@ -116,73 +103,28 @@ console.log(vidList);
    )}
 
 
+ // Rating component for each mapped item
+    function Rating(props) {
 
- //Test Rating component with props
-        function Rating(props) {
-          const [count, setCount] = useState(props.vid.rating);
-          function countUp() {
-            setCount(count + 1);
-          }
-          function countDown() {
-            setCount(count - 1);
-          }
+      // vid prop used to initalise count (value from rating key in vidList array); count's initial value changes according to each mapped arr item
+      const [count, setCount] = useState(props.vid.rating);
 
-          return (
-            <div>
-              <p>{count} likes</p>
-              <button onClick={countUp}>Up Vote</button>
-              <button onClick={countDown}>Down Vote</button>
-            </div>
-          );
-          }   
+    
+      function countUp() {
+        setCount(count + 1);
+      }
+      function countDown() {
+        setCount(count - 1);
+      }
 
-
-
-        //Rating component
-        // function Rating() {
-        //   // const [count, setCount] = useState(vid.rating);
-        //   // function countUp() {
-        //   //   setCount(count + 1);
-        //   // }
-        //   // function countDown() {
-        //   //   setCount(count - 1);
-        //   // }
-
-        //   return (
-        //     // <div>
-        //     //   <p>{count} likes</p>
-        //     //   <button onClick={countUp}>Up Vote</button>
-        //     //   <button onClick={countDown}>Down Vote</button>
-        //     // </div>
-        //   );
-        //   }   
- 
-   
-   
-//    vidList.map((vid, index) => {
-//       return function Video() {
-//         const extractedUrl = vid.url.substring(32).toString(); //stores unique ID string from url
-
-       
-
-//         return (
-//           <div id={index} classname="wrapper">
-//             <h2>{vid.title}</h2>
-//             {/* need src value within curly braces as using js to concatenate url with extractedUrl variable */}
-//             <iframe src={"https://www.youtube.com/embed/" + extractedUrl}></iframe>
-//             <Rating />
-//             <button id="DelBtn" onClick={deleteVid}>
-//               Delete
-//             </button>
-//           </div>
-//         );
-// }
-
- 
-// })}
-
- 
-
+      return (
+        <div>
+          <p>{count} likes</p>
+          <button onClick={countUp}>Up Vote</button>
+          <button onClick={countDown}>Down Vote</button>
+        </div>
+      );
+    }     
 
 
 // //for 1 Video
