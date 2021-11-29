@@ -69,7 +69,7 @@ console.log(vidList);
 
 //for all Vides
 function Video() {
-  function delVidComponent() {
+  function deleteVid() {
     const el = document.getElementById("vidDiv");
     // const el = document.getElementsByClassName("wrapper"); //don't work with class
     el.remove();
@@ -85,44 +85,49 @@ function Video() {
       <h2>{vidList[9].title}</h2>
       {/* need src value within curly braces as using js to concatenate url with extractedUrl variable */}
       <iframe src={"https://www.youtube.com/embed/" + extractedUrl}></iframe>
-      <p>{vidList[9].rating} votes</p>
-      <button>Up Vote</button>
-      <VoteUpBtn />
-      <button>Down Vote</button>
-      <VoteDownBtn/>
-      {/* <button onClick={deleteWhenClicked}>Delete Video</button> */}
-      {/* Test butn */}
-      {/* Works! deletes whole component!! */}
-      <button id="DelBtn" onClick={delVidComponent}>
-        Delete test
+      <Rating />
+      <button id="DelBtn" onClick={deleteVid}>
+        Delete
       </button>
     </div>
   );
 }
 
-//UpBtn component
-function VoteUpBtn() {
-  const [count, setCount] = useState(0);
-  console.log("Button was clicked!");
+//Rating component
+function Rating() {
+
+  const [count, setCount] = useState(vidList[9].rating);
+  // console.log("Button was clicked!");
 
   function countUp() {
-     setCount(count + 1)
+     setCount(count + 1);
   }
 
-   return <button onClick={countUp}>Down Vote {count}</button>;
-}
-
-//DownBtn component
-function VoteDownBtn() {
-  const [count, setCount] = useState(0);
-  console.log("DwnButton was clicked!");
-
-  function countDown() {
-     setCount(count - 1)
+   function countDown() {
+     setCount(count - 1);
   }
 
-   return <button onClick={countDown}>Up Vote {count}</button>;
+   return (
+     <div>
+       <p>{count} likes</p>
+       <button onClick={countUp}>Up Vote</button>
+       <button onClick={countDown}>Down Vote</button>
+     </div>
+   );
 }
+
+// //DownBtn component
+// function VoteDownBtn() {
+//   // sets count value at 73, increments by 1. Only updates in button text
+//   const [count, setCount] = useState(vidList[9].rating);
+//   console.log("DwnButton was clicked!");
+
+//   function countDown() {
+//      setCount(count - 1)
+//   }
+
+//    return <button onClick={countDown}>Down Vote {count}</button>;
+// }
 
 
 //for 1 video
