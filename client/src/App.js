@@ -15,10 +15,15 @@ function App() {
 
 //1. For each video
 //Create react component that includes
-  //1.1 Video title --(h2)
-  //1.2 Embedded video  --(iframe)
-  //1.3 No. of votes for video
-  //1.4 Delete button that removes video
+  //1.1 Video title --(h2) - DONE
+  //1.2 Embedded video  --(iframe) -DONE
+  //1.3 No. of votes for video - DONE
+  //1.4 Delete button that removes video -DONE 
+  //  WORKED with just remove() & getElementById
+      // Usestate ?
+      //check if video componennt is rendered/true
+      //if true remove it
+
   //1.5  2 buttons to vote --- (useState to track vote)
     //'Up Vote' increases score onclick
     //'Down Vote' decreases score 

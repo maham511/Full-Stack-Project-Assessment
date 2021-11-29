@@ -1,3 +1,5 @@
+import React, { useState } from "react";
+
 const vidList = [
   {
     id: 523523,
@@ -67,29 +69,60 @@ console.log(vidList);
 
 //for all Vides
 function Video() {
-    console.log('hiii');
-    const extractedUrl = vidList[9].url.substring(32).toString(); //logs correct ID
-    console.log(typeof extractedUrl);
-    console.log(`https://www.youtube.com/embed/${extractedUrl}`);
-
-    return (
-      <div classname="wrapper">
-        <h2>{vidList[9].title}</h2>
-        {/* need src value within curly braces as using js to concatenate url with extractedUrl variable */}
-        <iframe src={"https://www.youtube.com/embed/" + extractedUrl}></iframe>
-        <p>{vidList[9].rating} votes</p>
-        <button>Up Vote</button>
-        <button>Down Vote</button>
-        <button onClick={deleteWhenClicked}>Delete Video</button>
-      </div>
-    );
-};
-
-//deleteBtn handler
-  function deleteWhenClicked() {
-    console.log("Button was clicked!");
+  function delVidComponent() {
+    const el = document.getElementById("vidDiv");
+    // const el = document.getElementsByClassName("wrapper"); //don't work with class
+    el.remove();
   }
 
+  console.log("hiii");
+  const extractedUrl = vidList[9].url.substring(32).toString(); //logs correct ID
+  console.log(typeof extractedUrl);
+  console.log(`https://www.youtube.com/embed/${extractedUrl}`);
+
+  return (
+    <div id="vidDiv" classname="wrapper">
+      <h2>{vidList[9].title}</h2>
+      {/* need src value within curly braces as using js to concatenate url with extractedUrl variable */}
+      <iframe src={"https://www.youtube.com/embed/" + extractedUrl}></iframe>
+      <p>{vidList[9].rating} votes</p>
+      <button>Up Vote</button>
+      <VoteUpBtn />
+      <button>Down Vote</button>
+      <VoteDownBtn/>
+      {/* <button onClick={deleteWhenClicked}>Delete Video</button> */}
+      {/* Test butn */}
+      {/* Works! deletes whole component!! */}
+      <button id="DelBtn" onClick={delVidComponent}>
+        Delete test
+      </button>
+    </div>
+  );
+}
+
+//UpBtn component
+function VoteUpBtn() {
+  const [count, setCount] = useState(0);
+  console.log("Button was clicked!");
+
+  function countUp() {
+     setCount(count + 1)
+  }
+
+   return <button onClick={countUp}>Down Vote {count}</button>;
+}
+
+//DownBtn component
+function VoteDownBtn() {
+  const [count, setCount] = useState(0);
+  console.log("DwnButton was clicked!");
+
+  function countDown() {
+     setCount(count - 1)
+  }
+
+   return <button onClick={countDown}>Up Vote {count}</button>;
+}
 
 
 //for 1 video
