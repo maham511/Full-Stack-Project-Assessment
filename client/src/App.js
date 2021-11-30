@@ -1,6 +1,7 @@
 import "./App.css";
 import Video from "./Video";
 import AllVideos from "./Video";
+import AddVideo from './AddVideo';
 
 
 function App() {
@@ -9,7 +10,7 @@ function App() {
       <header className="App-header">
         <h1>Video Recommendation</h1>
       </header>
-        {/* <Video/> */}
+        <AddVideo/>
         <AllVideos/>
     </div>
   );
@@ -27,8 +28,8 @@ function App() {
       //if true remove it
 
   //1.5  2 buttons to vote --- (useState to track vote)
-    //'Up Vote' increases score onclick
-    //'Down Vote' decreases score 
+    //'Up Vote' increases score onclick --DONE
+    //'Down Vote' decreases score --DONE
     
 //Create React component that Adds a video. Includes
   // 2.1 field to add Title 

@@ -105,8 +105,7 @@ console.log(vidList);
 
  // Rating component for each mapped item
     function Rating(props) {
-
-      // vid prop used to initalise count (value from rating key in vidList array); count's initial value changes according to each mapped arr item
+      // vid prop used to initalise count (value from rating key in vidList array). UseState can only be used inside a component function 
       const [count, setCount] = useState(props.vid.rating);
 
     
@@ -127,48 +126,9 @@ console.log(vidList);
     }     
 
 
-// //for 1 Video
-// function Video() {
-//   function deleteVid() {
-//     const el = document.getElementById("vidDiv");
-//     // const el = document.getElementsByClassName("wrapper"); //don't work with class
-//     el.remove();
-//   }
 
-//   // console.log("hiii");
-//   const extractedUrl = vidList[9].url.substring(32).toString(); //stores unique ID string from url
-
-//   return (
-//     <div id="vidDiv" classname="wrapper">
-//       <h2>{vidList[9].title}</h2>
-//       {/* need src value within curly braces as using js to concatenate url with extractedUrl variable */}
-//       <iframe src={"https://www.youtube.com/embed/" + extractedUrl}></iframe>
-//       <Rating />
-//       <button id="DelBtn" onClick={deleteVid}>
-//         Delete
-//       </button>
-//     </div>
-//   );
-// }
-
-// //Rating component
-// function Rating() {
-//   const [count, setCount] = useState(vidList[9].rating);
-//   function countUp() {
-//      setCount(count + 1);
-//   }
-//    function countDown() {
-//      setCount(count - 1);
-//   }
-
-//    return (
-//      <div>
-//        <p>{count} likes</p>
-//        <button onClick={countUp}>Up Vote</button>
-//        <button onClick={countDown}>Down Vote</button>
-//      </div>
-//    );
-// }
 
 
 export default AllVideos;
+
+{/* <div class="addVideo" style="display: flex;"><div style="width: 30%; margin: 1rem;"><a href="#0" style="font-style: normal; text-decoration: none; font-size: 1.2rem;">Add video</a><form id="form"><div><label>Title<input class="input" name="title" type="text" required=""></label></div><div><label>URL<input class="input" name="vurl" type="text" required=""></label></div><div><button class="btn btn-warning input" type="cancel">Cancel</button><button class="btn btn-danger input" type="submit">ADD</button></div></form></div><div style="width: 40%; margin: 2rem;"><label>Search<input class="search" name="search" type="text" value=""></label></div></div> */}
