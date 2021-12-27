@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 
+//ADD VIDEO COMPONENT NOT UPDATING VIDlIST ARR. lOGS AS UPDATING, BUT NOT RENDERING
+
 const vidList = [
   {
     id: 523523,
@@ -63,20 +65,37 @@ const vidList = [
     rating: 73,
   },
 ];
-console.log(vidList);
+// console.log(vidList);
+ const newVid = {
+   id: "",
+   title: "titleInput",
+   url: "https://www.youtube.com/watch?v=La9oLLoI5Rc",
+   rating: "",
+ };
+  console.log(vidList);
+  vidList.push(newVid);
+
+
 
  //for all Videos
  function AllVideos () {
+  const [vidArr, setVidArr] = useState(vidList);
+  
+
+  console.log(vidArr);
+  //  setVidArr([...vidArr, newVid]);
+  // setVidArr ();
+
+
    return (
      <div>
-       {vidList.map((vid, index) => {
+       {vidArr.map((vid, index) => {
 
          //extracts unique video url string from array(all chars after 'v=') 
-         const extractedID = vid.url.substring(32).toString();
+         const extractedID = vid.url.substring(32);
 
          //handler for delete btn
          function deleteVid() {
-
            //Store whole video div
            const el = document.getElementById(index + 1);
            el.remove(); //deletes whole video div element; remove() won't work with classname
@@ -126,9 +145,5 @@ console.log(vidList);
     }     
 
 
-
-
-
+export { vidList };
 export default AllVideos;
-
-{/* <div class="addVideo" style="display: flex;"><div style="width: 30%; margin: 1rem;"><a href="#0" style="font-style: normal; text-decoration: none; font-size: 1.2rem;">Add video</a><form id="form"><div><label>Title<input class="input" name="title" type="text" required=""></label></div><div><label>URL<input class="input" name="vurl" type="text" required=""></label></div><div><button class="btn btn-warning input" type="cancel">Cancel</button><button class="btn btn-danger input" type="submit">ADD</button></div></form></div><div style="width: 40%; margin: 2rem;"><label>Search<input class="search" name="search" type="text" value=""></label></div></div> */}
