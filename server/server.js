@@ -81,26 +81,63 @@ app.get("/", (req, res) => {
 });
 
 
-// 1. Must include both title and url values
-// 2. Url must be valid youtube url --- USe youtube API, but will need to make GET rquest
-// 3. If above requirments met, add unique id to json
-// 4. If failed, send {
-//   "result": "failure",
-//   "message": "Video could not be saved"
-// }
+// POST "/"
 app.post("/", (request, response) => {
   const lastIndex = videos.length - 1;
   const lastId = videos[lastIndex].id;
   const newVideo = {
-    id: lastId + 5,
+    id: lastId + 25, //can increment by any number
     title: request.body.title,
-    url: request.body.url,
+    url: request.body.url
   };
 
   if (!newVideo.title || !newVideo.url) {
     return response.send("Title and/or url missing");
-  } else {
-    videos.push(newVideo);
-    return response.send(`video added with id:${newVideo.id}`);
+  } 
+  // validator won't recognise https, use http or www... instead.
+  else if (
+    validator.validateUrl(newVideo.url, function (res, err) {
+      if (err) {
+          response.send({
+          result: "failure",
+          message: "Video could not be saved",
+        });
+      } else {
+        videos.push(newVideo);
+        response.send(`video added with id:${newVideo.id}`);
+      }
+    })
+  );
+  });
+
+
+// GET "/:id"
+  app.get("/:id", (request, response) => {
+    const id = request.params.id;
+
+    if (id) {
+      const filteredVid = videos.filter((video) => video.id == id);
+      return response.json(filteredVid);
+    }
+  });
+
+
+// DELETE "/:id"
+app.delete("/:id", (request, response) => {
+  const id = request.params.id;
+
+  if (id) {
+    const videoIndex = videos.findIndex(video => video.id == id); 
+
+    videos.splice(videoIndex, 1);
+    if (videoIndex < 0) {
+      response.json({
+        result: "failure",
+        message: "Video could not be deleted",
+      });
+    }
+    
+    response.json('video deleted');
   }
-});
+ 
+})
